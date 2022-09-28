@@ -14,6 +14,18 @@
             $this->state = $state;
         }
 
+        function get_todo(){
+            $add = "SELECT * FROM list";
+            $res = $GLOBALS["conn"]->query($add);
+            $rows = [];
+            if($res->num_rows > 0){
+                while($row = $res->fetch_assoc()){
+                    $rows[] = $row;
+                }
+            }
+            return $rows;
+        }
+
         function add_todo(){
             $add = "INSERT INTO list(title, descrip, state) VALUES(
                 '$this->title','$this->descrip', $this->state
@@ -42,7 +54,7 @@
         $descrip = $_POST["descrip"];
         $new_obj = new TodoList(NULL, $title, $descrip, 0);
         echo $new_obj->title;
-        // $new_obj->add_todo();
+        $new_obj->add_todo();
     }
 
     if(isset($_POST["edit"])){
@@ -58,5 +70,10 @@
         $id = $_POST["id"];
         $new_obj = new TodoList($id, NULL, NULL, NULL);
         $new_obj->delete_todo();
+    }
+
+    if(isset($_GET["get_data"])){
+        $new_obj = new TodoList(NULL,NULL,NULL,NUll);
+        echo json_encode($new_obj->get_todo());
     }
 ?>
