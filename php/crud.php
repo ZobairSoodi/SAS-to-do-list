@@ -28,9 +28,16 @@ class Todolist {
 
     }
 
+    function edit_todo(){
+        $edit = "UPDATE list SET title='$this->title', descrip='$this->descrip' 
+        WHERE id='$this->id'";
+
+        $GLOBALS['conn']->query($edit);
+    }
+
 }
 
-
+//insert into database
 if(isset($_POST['submit'])){
     $todo_title = $_POST['title'];
     $todo_descrip = $_POST['descrip'];
@@ -39,10 +46,17 @@ if(isset($_POST['submit'])){
     $todo->add_todo();
 }
 
+//delete from database
 if(isset($_POST['delete'])){
     $todo = new Todolist($_POST['id'], NULL, NULL, NULL);
     $todo->delete_todo();
 }
 
+//edit 
+if(isset($_POST['update'])){
+    
+    $todo = new Todolist($_POST['id'], $_POST['title'], $_POST['descrip'], NULL);
+    $todo->edit_todo();
+}
 
 ?>

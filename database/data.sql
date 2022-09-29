@@ -6,5 +6,5 @@ CREATE TABLE list(
     id INT PRIMARY KEY AUTO_INCREMENT,
     title VARCHAR(25),
     descrip VARCHAR(255),
-    state INT NULL
+    state INT 
 );
