@@ -39,6 +39,7 @@
                 state = $this->state
                 WHERE id = $this->id
             ";
+            echo $edit . "<br>";
             $GLOBALS["conn"]->query($edit);
         }
         function delete_todo(){
@@ -55,6 +56,7 @@
         $new_obj = new TodoList(NULL, $title, $descrip, 0);
         echo $new_obj->title;
         $new_obj->add_todo();
+        header("location: http://localhost:3000");
     }
 
     if(isset($_POST["edit"])){
